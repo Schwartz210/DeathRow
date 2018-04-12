@@ -14,6 +14,8 @@ class InmateDeck extends Deck{
         super();
         this.deck = [];
         this.inmateQueue = [];
+        this.player1ScorePile = [];
+        this.aiScorePile = [];
         this.build();
         Deck.shuffle(this.deck);
         this.draw(10);
@@ -36,7 +38,7 @@ class InmateDeck extends Deck{
 
     draw(quantity){
         for (var i = 0; i < quantity; i++){
-            this.inmateQueue.push(this.deck.pop());
+            this.inmateQueue.push(this.deck.shift());
         }
     }
 
@@ -73,6 +75,21 @@ class InmateDeck extends Deck{
         return this.inmateQueue[index];
     }
 
+    moveToScorePile(player){
+        if (player == 'AI'){
+            this.aiScorePile.push(this.inmateQueue.shift());
+        } else {
+            this.player1ScorePile.push(this.inmateQueue.shift());
+        }
+    }
+
+    hasCardsInQueue(){
+        if (this.inmateQueue.length > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 

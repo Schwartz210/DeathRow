@@ -1,25 +1,28 @@
-var inmateDeck = new InmateDeck();
-var actionDeck = new ActionCardDeck();
+var gameEngine = new GameEngine();
 
 
 function execute(){
     gui();
-    refresh();
 }
+
 
 function gui(){
     var body = document.getElementsByTagName('BODY')[0];
+    body.appendChild(getInmateTable());
+    body.appendChild(getActionCardTable());
+    gameEngine.refresh();
+}
+
+function getInmateTable(){
     var table = document.createElement("table");
     var tableBody = document.createElement("tbody");
     var row = document.createElement("tr");
     for (var i = 0;i<10;i++){
         var cell = document.createElement("td");
         var image = document.createElement('IMG');
-        image.src = inmateDeck.inmateQueue[i].image;
         image.id = 'image' + String(i);
         cell.appendChild(image);
         var text = document.createElement("p");
-        text.innerHTML = inmateDeck.inmateQueue[i].name;
         text.id = "text" + String(i);
         cell.appendChild(text);
         row.appendChild(cell);
@@ -31,15 +34,34 @@ function gui(){
     row.appendChild(guillotineCell);
     tableBody.appendChild(row);
     table.appendChild(tableBody);
-    body.appendChild(table);
+    return table;
 }
 
-function refresh(){
-    for (var i = 0;i<inmateDeck.inmateQueue.length;i++){
-        var text = document.getElementById('text' + String(i));
-        text.innerHTML = inmateDeck.inmateQueue[i].name;
-        var image = document.getElementById('image' + String(i));
-        image.src = inmateDeck.inmateQueue[i].image;
+
+function getActionCardTable(){
+    var table = document.createElement("table");
+    var tableBody = document.createElement("tbody");
+    for (var i=0;i<gameEngine.actionDeck.player1Hand.length;i++){
+        var row = document.createElement("tr");
+        var cell = document.createElement("td");
+        var text = document.createElement("p");
+        text.innerHTML = gameEngine.actionDeck.player1Hand[i].description;
+        text.id = 'actionText' + String(i);
+        text.onclick = actionCardOnClickHandler;
+        cell.appendChild(text);
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+    }
+    table.appendChild(tableBody);
+    return table;
+}
+
+function actionCardOnClickHandler(){
+    var text = document.getElementById(this.id);
+    if (text.style.color == 'black'){
+        text.style.color = 'blue';
+    } else {
+        text.style.color = 'black';
     }
 
 }
