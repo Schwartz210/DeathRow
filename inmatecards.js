@@ -5,8 +5,6 @@ class Inmate{
         this.color = color;
         this.image = 'art/' + color + String(points) + '.png'
     }
-
-
 }
 
 class InmateDeck extends Deck{
@@ -90,8 +88,4 @@ class InmateDeck extends Deck{
             return false;
         }
     }
-
-
-
-
 }

@@ -38,4 +38,23 @@ class GameEngine{
             this.activePlayer = 'player1';
         }
     }
+
+    findRelevantInmateCards(){
+        var out = [];
+        var actionCard = this.actionDeck.player1Hand[getNumberFromId(selectedActionCard)];
+        if (this.actionDeck.getCardTypeFromActionCardCellID(selectedActionCard) == 'SwapCard'){
+            for (var i=0;i<this.inmateDeck.inmateQueue.length;i++){
+                if (actionCard.indices > 0){ //backwards
+                    if (i+actionCard.indices<this.inmateDeck.inmateQueue.length){
+                        out.push(i);
+                    }
+                } else { //forwards
+                    if (i>=actionCard.indices*-1){
+                        out.push(i);
+                    }
+                }
+            }
+        }
+        return out;
+    }
 }

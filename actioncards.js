@@ -45,7 +45,7 @@ class ActionCardDeck extends Deck{
             this.deck.push(new SwapCard("Move an inmate forward 3 places", -3));
             this.deck.push(new SwapCard("Move an inmate backwards 1 place", 1));
             this.deck.push(new SwapCard("Move an inmate forward 2 places", -2));
-            this.deck.push(new SwapCard("Move an inmate forward 3 places", -5));
+            this.deck.push(new SwapCard("Move an inmate forward 5 places", -5));
         }
     }
 
@@ -62,5 +62,9 @@ class ActionCardDeck extends Deck{
             this.draw('player1');
             this.draw('AI');
         }
+    }
+
+    getCardTypeFromActionCardCellID(cellID){
+        return this.player1Hand[getNumberFromId(cellID)].constructor.name;
     }
 }
