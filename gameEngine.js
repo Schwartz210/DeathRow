@@ -16,19 +16,21 @@ class GameEngine{
     }
 
     refresh(){
-        for (var i = 0;i<this.inmateDeck.inmateQueue.length;i++){
-            var text = document.getElementById('text' + String(i));
-            text.innerHTML = this.inmateDeck.inmateQueue[i].name;
-            var image = document.getElementById('image' + String(i));
-            image.src = this.inmateDeck.inmateQueue[i].image;
+        for (var i = 0;i<10;i++){
+            var text = document.getElementById('inmateText' + String(i));
+            var image = document.getElementById('inmateImage' + String(i));
+            if (this.inmateDeck.inmateQueue[i] != null){
+                text.innerHTML = this.inmateDeck.inmateQueue[i].name;
+                image.src = this.inmateDeck.inmateQueue[i].image;
+            } else {
+                text.innerHTML = '';
+                image.src = 'art/nothing.png';
+            }
+            returnInmateCellsToDefaultColor();
+            if (selectedActionCard != null){
+                document.getElementById(selectedActionCard).style.color = 'black';
+            }
         }
-    }
-
-    turn(){
-        this.changePlayer();
-        this.refresh();
-        this.actionDeck.draw(this.activePlayer);
-        this.status = 'stop';
     }
 
     changePlayer(){
@@ -37,6 +39,15 @@ class GameEngine{
         } else {
             this.activePlayer = 'player1';
         }
+    }
+
+    turn(){
+        this.inmateDeck.moveToScorePile(this.activePlayer);
+        this.changePlayer();
+        this.refresh();
+        this.actionDeck.draw(this.activePlayer);
+        this.status = 'stop';
+
     }
 
     findRelevantInmateCards(){

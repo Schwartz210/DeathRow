@@ -18,6 +18,10 @@ class SwapCard extends ActionCard{
         inmateDeck.inmateQueue[index2] = temp;
         gameEngine.refresh();
     }
+
+    getQueueIndexOfRelevantCards(indexInQueue){
+        return [parseInt(indexInQueue) + parseInt(this.indices)];
+    }
 }
 
 class SlideCard extends ActionCard{
